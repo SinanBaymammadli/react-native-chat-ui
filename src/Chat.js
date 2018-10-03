@@ -123,7 +123,7 @@ Chat.propTypes = {
   style: PropTypes.shape({}),
   chatter: PropTypes.shape({
     id: PropTypes.string.isRequired,
-    avatar: PropTypes.string.isRequired,
+    avatar: PropTypes.string,
   }).isRequired,
   user: PropTypes.shape({
     id: PropTypes.string.isRequired,
@@ -192,7 +192,7 @@ Chat.defaultProps = {
       sendIconActiveColor: "#5fc2fc",
     },
   },
-  showChatterAvatar: true,
+  showChatterAvatar: false,
   notSentText: "Not sent.",
   inputPlaceholder: "Type a message",
   SendButtonComponent: false,

@@ -160,7 +160,7 @@ Bubble.propTypes = {
   }).isRequired,
   chatter: PropTypes.shape({
     id: PropTypes.string.isRequired,
-    avatar: PropTypes.string.isRequired,
+    avatar: PropTypes.string,
   }).isRequired,
   user: PropTypes.shape({
     id: PropTypes.string.isRequired,
