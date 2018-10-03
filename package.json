@@ -18,8 +18,8 @@
   ],
   "author": "Sinan Baymammadli",
   "peerDependencies": {
-    "react": "16.5.0",
-    "react-native": "0.57.1"
+    "react": "*",
+    "react-native": "*"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
@@ -34,12 +34,12 @@
     "jest": "23.6.0",
     "metro-react-native-babel-preset": "0.47.0",
     "prettier": "^1.14.3",
-    "react-test-renderer": "16.5.0"
+    "react-test-renderer": "16.5.0",
+    "react": "16.5.0",
+    "react-native": "0.57.1"
   },
   "dependencies": {
     "moment": "^2.22.2",
-    "prop-types": "^15.6.2",
-    "react": "^16.5.2",
-    "react-native": "^0.57.1"
+    "prop-types": "^15.6.2"
   }
 }
