@@ -19,6 +19,9 @@
 
 - sudo npm install -g wml
 - git clone https://github.com/SinanBaymammadli/react-native-chat-ui.git
+- git clone https://github.com/SinanBaymammadli/react-native-chat-ui-dev.git
 - cd react-native-chat-ui
-- wml add ./ ../your-test-project/node_modules/react-native-chat-ui
+- wml add ./ ../react-native-chat-ui-dev/node_modules/react-native-chat-ui
 - wml start
+- cd ../react-native-chat-ui-dev
+- react-native run-ios
