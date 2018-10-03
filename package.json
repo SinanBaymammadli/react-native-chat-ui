@@ -1,6 +1,6 @@
 {
   "name": "react-native-chat-ui",
-  "version": "0.0.1",
+  "version": "0.1.4",
   "description": "Chat UI for React Native",
   "repository": {
     "type": "git",
@@ -35,5 +35,11 @@
     "metro-react-native-babel-preset": "0.47.0",
     "prettier": "^1.14.3",
     "react-test-renderer": "16.5.0"
+  },
+  "dependencies": {
+    "moment": "^2.22.2",
+    "prop-types": "^15.6.2",
+    "react": "^16.5.2",
+    "react-native": "^0.57.1"
   }
 }
