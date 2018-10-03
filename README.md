@@ -11,8 +11,8 @@
 
 # Updating package
 
-- npm version [patch, minor, major]
 - npm login
+- npm version [patch, minor, major]
 - npm publish
 
 # Development
