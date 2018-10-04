@@ -1,19 +1,19 @@
-## Installation
+# Installation
 
 - Using [npm](https://www.npmjs.com/#getting-started): `npm install react-native-chat-ui`
 - Using [Yarn](https://yarnpkg.com/): `yarn add react-native-chat-ui`
 
-## Example
+# Example
 
 - [https://github.com/SinanBaymammadli/react-native-chat-ui-example](https://github.com/SinanBaymammadli/react-native-chat-ui-example)
 
-# Updating package
+### Updating package
 
 - npm login
 - npm version [patch, minor, major]
 - npm publish
 
-# Development
+### Development
 
 - sudo npm install -g wml
 - git clone https://github.com/SinanBaymammadli/react-native-chat-ui.git
