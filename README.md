@@ -1,5 +1,3 @@
-# STILL IN DEVELOPMENT
-
 ## Installation
 
 - Using [npm](https://www.npmjs.com/#getting-started): `npm install react-native-chat-ui`
@@ -22,6 +20,6 @@
 - git clone https://github.com/SinanBaymammadli/react-native-chat-ui-dev.git
 - cd react-native-chat-ui
 - wml add ./ ../react-native-chat-ui-dev/node_modules/react-native-chat-ui
-- wml start
+- wml start (re-run this everytime you run yarn add)
 - cd ../react-native-chat-ui-dev
 - react-native run-ios

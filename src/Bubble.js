@@ -152,18 +152,19 @@ class Bubble extends PureComponent {
 
 Bubble.propTypes = {
   message: PropTypes.shape({
-    userId: PropTypes.string.isRequired,
+    userId: PropTypes.oneOfType([PropTypes.number.isRequired, PropTypes.string.isRequired])
+      .isRequired,
     text: PropTypes.string.isRequired,
     createdAt: PropTypes.string.isRequired,
     sending: PropTypes.bool.isRequired,
     error: PropTypes.bool.isRequired,
   }).isRequired,
   chatter: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    id: PropTypes.oneOfType([PropTypes.number.isRequired, PropTypes.string.isRequired]).isRequired,
     avatar: PropTypes.string,
   }).isRequired,
   user: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    id: PropTypes.oneOfType([PropTypes.number.isRequired, PropTypes.string.isRequired]).isRequired,
   }).isRequired,
   showChatterAvatar: PropTypes.bool.isRequired,
   style: PropTypes.shape({}).isRequired,

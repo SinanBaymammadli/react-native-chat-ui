@@ -96,7 +96,8 @@ class Composer extends PureComponent {
 }
 
 Composer.propTypes = {
-  userId: PropTypes.string.isRequired,
+  userId: PropTypes.oneOfType([PropTypes.number.isRequired, PropTypes.string.isRequired])
+    .isRequired,
   onSend: PropTypes.func.isRequired,
   style: PropTypes.shape({}).isRequired,
   inputPlaceholder: PropTypes.string.isRequired,

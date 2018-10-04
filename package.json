@@ -34,12 +34,13 @@
     "jest": "23.6.0",
     "metro-react-native-babel-preset": "0.47.0",
     "prettier": "^1.14.3",
-    "react-test-renderer": "16.5.0",
     "react": "16.5.0",
-    "react-native": "0.57.1"
+    "react-native": "0.57.1",
+    "react-test-renderer": "16.5.0"
   },
   "dependencies": {
     "moment": "^2.22.2",
-    "prop-types": "^15.6.2"
+    "prop-types": "^15.6.2",
+    "uuid": "^3.3.2"
   }
 }
