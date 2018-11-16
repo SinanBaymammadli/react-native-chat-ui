@@ -41,6 +41,7 @@
   "dependencies": {
     "moment": "^2.22.2",
     "prop-types": "^15.6.2",
+    "react-native-image-zoom-viewer": "^2.2.23",
     "uuid": "^3.3.2"
   }
 }

@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import { Text, View, Animated, Image } from "react-native";
+import { Text, View, Animated, Image, TouchableOpacity } from "react-native";
 import moment from "moment";
 import { TIME_FORMAT } from "./constants";
 import MessageStatus from "./MessageStatus";
@@ -27,7 +27,7 @@ class Bubble extends PureComponent {
 
   render() {
     const {
-      message: { text, userId, createdAt, sending, error },
+      message: { text, userId, createdAt, sending, error, imageUrl, fileUrl },
       user,
       chatter,
       nextMessage,
@@ -36,6 +36,8 @@ class Bubble extends PureComponent {
       showChatterAvatar,
       notSentText,
       SentComponent,
+      imagePressed,
+      filePressed,
     } = this.props;
     const right = userId === user.id;
 
@@ -92,7 +94,8 @@ class Bubble extends PureComponent {
           <View
             style={{
               paddingHorizontal: 10,
-              paddingVertical: 5,
+              paddingTop: 10,
+              paddingBottom: 5,
               backgroundColor: right ? style.right.backgroundColor : style.left.backgroundColor,
               marginBottom: userId !== prevMessage.userId ? 10 : 2,
               marginRight: right ? 10 : 100,
@@ -105,15 +108,34 @@ class Bubble extends PureComponent {
                 : BUBBLE_BIG_BORDER_RADIUS,
             }}
           >
-            <Text
-              style={{
-                color: right ? style.right.textColor : style.left.textColor,
-                textAlign: right ? "right" : "left",
-                fontSize: right ? style.right.textSize : style.left.textSize,
-              }}
-            >
-              {text}
-            </Text>
+            {!!imageUrl && (
+              <TouchableOpacity onPress={() => imagePressed(imageUrl)} activeOpacity={0.9}>
+                <Image
+                  source={{ uri: imageUrl }}
+                  style={{
+                    width: 200,
+                    height: 200,
+                  }}
+                />
+              </TouchableOpacity>
+            )}
+            {!!fileUrl && (
+              <TouchableOpacity onPress={() => filePressed(fileUrl)}>
+                <Text>Download file</Text>
+              </TouchableOpacity>
+            )}
+            {!!text && (
+              <Text
+                style={{
+                  color: right ? style.right.textColor : style.left.textColor,
+                  textAlign: right ? "right" : "left",
+                  fontSize: right ? style.right.textSize : style.left.textSize,
+                }}
+              >
+                {text}
+              </Text>
+            )}
+
             <View
               style={{
                 flexDirection: "row",
@@ -154,7 +176,8 @@ Bubble.propTypes = {
   message: PropTypes.shape({
     userId: PropTypes.oneOfType([PropTypes.number.isRequired, PropTypes.string.isRequired])
       .isRequired,
-    text: PropTypes.string.isRequired,
+    text: PropTypes.string,
+    image: PropTypes.string,
     createdAt: PropTypes.string.isRequired,
     sending: PropTypes.bool.isRequired,
     error: PropTypes.bool.isRequired,
@@ -172,6 +195,8 @@ Bubble.propTypes = {
   prevMessage: PropTypes.shape({}).isRequired,
   notSentText: PropTypes.string.isRequired,
   SentComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]).isRequired,
+  imagePressed: PropTypes.func.isRequired,
+  filePressed: PropTypes.func.isRequired,
 };
 
 export default Bubble;

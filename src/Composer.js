@@ -31,7 +31,14 @@ class Composer extends PureComponent {
   };
 
   render() {
-    const { style, inputPlaceholder, SendButtonComponent } = this.props;
+    const {
+      style,
+      inputPlaceholder,
+      SendButtonComponent,
+      allowFiles,
+      selectImage,
+      selectFile,
+    } = this.props;
     const { text } = this.state;
     const disabled = !text.trim();
 
@@ -43,27 +50,78 @@ class Composer extends PureComponent {
           backgroundColor: style.backgroundColor,
         }}
       >
-        <TextInput
+        <View
           style={{
             flex: 1,
-            maxHeight: 100,
-            minHeight: 40,
-            paddingTop: IOS ? 10 : 5,
-            paddingBottom: IOS ? 10 : 5,
-            paddingHorizontal: 10,
-            marginVertical: 5,
-            marginLeft: 5,
-            backgroundColor: style.inputBackgroundColor,
-            color: style.inputTextColor,
-            fontSize: style.inputTextSize,
+            flexDirection: "row",
+            position: "relative",
           }}
-          value={text}
-          placeholder={inputPlaceholder}
-          placeholderTextColor={style.inputPlaceholderTextColor}
-          multiline
-          autoFocus
-          onChangeText={newText => this.setState({ text: newText })}
-        />
+        >
+          <TextInput
+            style={{
+              flex: 1,
+              maxHeight: 100,
+              minHeight: 40,
+              paddingTop: IOS ? 10 : 5,
+              paddingBottom: IOS ? 10 : 5,
+              paddingHorizontal: 10,
+              marginVertical: 5,
+              marginLeft: 10,
+              backgroundColor: style.inputBackgroundColor,
+              color: style.inputTextColor,
+              fontSize: style.inputTextSize,
+            }}
+            value={text}
+            placeholder={inputPlaceholder}
+            placeholderTextColor={style.inputPlaceholderTextColor}
+            multiline
+            // autoFocus
+            onChangeText={newText => this.setState({ text: newText })}
+          />
+          {allowFiles &&
+            !text && (
+              <View
+                style={{
+                  position: "absolute",
+                  right: 0,
+                  top: 5,
+                  bottom: 5,
+                  flexDirection: "row",
+                }}
+              >
+                <TouchableOpacity
+                  style={{
+                    padding: 5,
+                    justifyContent: "center",
+                  }}
+                  onPress={selectFile}
+                >
+                  <Text
+                    style={{
+                      color: style.sendIconActiveColor,
+                    }}
+                  >
+                    File
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={{
+                    padding: 5,
+                    justifyContent: "center",
+                  }}
+                  onPress={selectImage}
+                >
+                  <Text
+                    style={{
+                      color: style.sendIconActiveColor,
+                    }}
+                  >
+                    Img
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            )}
+        </View>
         <TouchableOpacity
           disabled={disabled}
           onPress={this.onPress}
@@ -102,6 +160,9 @@ Composer.propTypes = {
   style: PropTypes.shape({}).isRequired,
   inputPlaceholder: PropTypes.string.isRequired,
   SendButtonComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]).isRequired,
+  allowFiles: PropTypes.bool.isRequired,
+  selectImage: PropTypes.func.isRequired,
+  selectFile: PropTypes.func.isRequired,
 };
 
 export default Composer;

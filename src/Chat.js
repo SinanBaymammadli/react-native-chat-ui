@@ -8,7 +8,10 @@ import {
   LayoutAnimation,
   ActivityIndicator,
   Text,
+  Modal,
+  StatusBar,
 } from "react-native";
+import ImageViewer from "react-native-image-zoom-viewer";
 import Bubble from "./Bubble";
 import Composer from "./Composer";
 import { IOS } from "./constants";
@@ -17,10 +20,22 @@ class Chat extends PureComponent {
   constructor(props) {
     super(props);
 
+    this.state = {
+      fullImageShown: false,
+      fullImageUrl: "",
+    };
+
     if (!IOS && UIManager.setLayoutAnimationEnabledExperimental) {
       UIManager.setLayoutAnimationEnabledExperimental(true);
     }
   }
+
+  imagePressed = uri => {
+    this.setState({
+      fullImageShown: true,
+      fullImageUrl: uri,
+    });
+  };
 
   render() {
     const {
@@ -38,11 +53,25 @@ class Chat extends PureComponent {
       inputPlaceholder,
       SendButtonComponent,
       SentComponent,
+      allowFiles,
+      selectImage,
+      selectFile,
+      filePressed,
+      keyboardVerticalOffset,
     } = this.props;
+
+    const { fullImageShown, fullImageUrl } = this.state;
+
+    const images = messages
+      .filter(message => !!message.image)
+      .map(message => ({ url: message.image }));
+
+    const selectedImageIndex = images.findIndex(image => image.url === fullImageUrl);
 
     return (
       <KeyboardAvoidingView
         behavior={IOS && "padding"}
+        keyboardVerticalOffset={keyboardVerticalOffset}
         style={{
           flex: 1,
           backgroundColor: style.backgroundColor,
@@ -74,6 +103,8 @@ class Chat extends PureComponent {
                 showChatterAvatar={showChatterAvatar}
                 notSentText={notSentText}
                 SentComponent={SentComponent}
+                imagePressed={this.imagePressed}
+                filePressed={filePressed}
               />
             )}
             ListFooterComponent={
@@ -113,7 +144,32 @@ class Chat extends PureComponent {
           userId={user.id}
           inputPlaceholder={inputPlaceholder}
           SendButtonComponent={SendButtonComponent}
+          allowFiles={allowFiles}
+          selectImage={selectImage}
+          selectFile={selectFile}
         />
+
+        <Modal
+          animationType="fade"
+          transparent
+          visible={fullImageShown}
+          onRequestClose={() => this.setState({ fullImageShown: false })}
+        >
+          <StatusBar barStyle="light-content" />
+          <View
+            style={{
+              flex: 1,
+              position: "relative",
+            }}
+          >
+            <ImageViewer
+              imageUrls={images}
+              index={selectedImageIndex}
+              enableSwipeDown
+              onCancel={() => this.setState({ fullImageShown: false })}
+            />
+          </View>
+        </Modal>
       </KeyboardAvoidingView>
     );
   }
@@ -132,7 +188,8 @@ Chat.propTypes = {
     PropTypes.shape({
       id: PropTypes.oneOfType([PropTypes.number.isRequired, PropTypes.string.isRequired])
         .isRequired,
-      text: PropTypes.string.isRequired,
+      text: PropTypes.string,
+      image: PropTypes.string,
       createdAt: PropTypes.string.isRequired,
       sending: PropTypes.bool,
       error: PropTypes.bool,
@@ -148,6 +205,11 @@ Chat.propTypes = {
   inputPlaceholder: PropTypes.string,
   SendButtonComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
   SentComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
+  allowFiles: PropTypes.bool,
+  selectImage: PropTypes.func,
+  selectFile: PropTypes.func,
+  filePressed: PropTypes.func,
+  keyboardVerticalOffset: PropTypes.number,
 };
 
 Chat.defaultProps = {
@@ -198,6 +260,11 @@ Chat.defaultProps = {
   inputPlaceholder: "Type a message",
   SendButtonComponent: false,
   SentComponent: false,
+  allowFiles: true,
+  keyboardVerticalOffset: 0,
+  selectImage: () => null,
+  selectFile: () => null,
+  filePressed: () => null,
 };
 
 export default Chat;
